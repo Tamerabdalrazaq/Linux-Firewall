@@ -1,0 +1,59 @@
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/netfilter.h>
+#include <linux/netfilter_ipv4.h>
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Razaq");
+MODULE_DESCRIPTION("Basic Packet Filtering");
+MODULE_VERSION("1");
+
+static struct nf_hook_ops netfilter_ops_in;
+static struct nf_hook_ops netfilter_ops_out;
+
+static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
+    if (state->in && strcmp(state->in->name, "nic2") == 0) {
+        printk(KERN_INFO "*** Packet Dropped ***\n");
+        return NF_DROP;
+    }
+  
+    if (state->out && strcmp(state->out->name, "nic2") == 0) {
+        printk(KERN_INFO "*** Packet Dropped ***\n");
+        return NF_DROP;
+    }
+  
+    printk(KERN_INFO "*** Packet Accepted ***\n");
+    return NF_ACCEPT;
+}
+
+static int __init module_init(void) {
+    printk(KERN_INFO "Loading hw1secws module...\n");
+
+    // Set up the Netfilter hook for incoming packets
+    netfilter_ops_in.hook = module_hook;
+    netfilter_ops_in.pf = PF_INET;
+    netfilter_ops_in.hooknum = NF_INET_PRE_ROUTING;
+    netfilter_ops_in.priority = NF_IP_PRI_FIRST;
+
+    // Set up the Netfilter hook for outgoing packets
+    netfilter_ops_out.hook = module_hook;
+    netfilter_ops_out.pf = PF_INET;
+    netfilter_ops_out.hooknum = NF_INET_POST_ROUTING;
+    netfilter_ops_out.priority = NF_IP_PRI_FIRST;
+
+    // Register the hook
+    nf_register_net_hook(&init_net, &netfilter_ops_in);
+    nf_register_net_hook(&init_net, &netfilter_ops_out);
+
+    return 0;
+}
+
+static void __exit module_exit(void) {
+    printk(KERN_INFO "Removing hw1secws module...\n");
+
+    nf_unregister_net_hook(&init_net, &netfilter_ops_in);
+    nf_unregister_net_hook(&init_net, &netfilter_ops_out);
+}
+
+module_init(hw1secws_init);
+module_exit(hw1secws_exit);
