@@ -14,17 +14,18 @@ static struct nf_hook_ops netfilter_ops_out;
 static struct nf_hook_ops netfilter_ops_fw;
 
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
-    printk(KERN_INFO "%s \n", state->hook);
-    if (state->hook == NF_INET_LOCAL_IN || state->hook == NF_INET_LOCAL_OUT) {
-        printk(KERN_INFO "*** Packet Dropped ***\n");
+    if (state->hook == NF_INET_LOCAL_IN) {
+        printk(KERN_INFO "[FW] Incoming packet: Local connection blocked\n");
         return NF_DROP;
+    } else if (state->hook == NF_INET_LOCAL_OUT) {
+        printk(KERN_INFO "[FW] Outgoing packet: Local connection blocked\n");
+        return NF_DROP;
+    } else if (state->hook == NF_INET_FORWARD) {
+        printk(KERN_INFO "[FW] Forwarding packet: Connection allowed\n");
+        return NF_ACCEPT;
     }
-  
-    printk(KERN_INFO "*** Packet Accepted ***\n");
     return NF_ACCEPT;
 }
-
-
 
 static int __init fw_init(void) {
     printk(KERN_INFO "Loading hw1secws module...\n");
@@ -41,13 +42,13 @@ static int __init fw_init(void) {
     netfilter_ops_out.hooknum = NF_INET_LOCAL_OUT;
     netfilter_ops_out.priority = NF_IP_PRI_FIRST;
 
-    // Set up the Netfilter hook for outgoing packets
+    // Set up the Netfilter hook for forwarding packets
     netfilter_ops_fw.hook = module_hook;
     netfilter_ops_fw.pf = PF_INET;
     netfilter_ops_fw.hooknum = NF_INET_FORWARD;
     netfilter_ops_fw.priority = NF_IP_PRI_FIRST;
 
-    // Register the hook
+    // Register the hooks
     nf_register_net_hook(&init_net, &netfilter_ops_in);
     nf_register_net_hook(&init_net, &netfilter_ops_out);
     nf_register_net_hook(&init_net, &netfilter_ops_fw);
@@ -60,6 +61,7 @@ static void __exit fw_exit(void) {
 
     nf_unregister_net_hook(&init_net, &netfilter_ops_in);
     nf_unregister_net_hook(&init_net, &netfilter_ops_out);
+    nf_unregister_net_hook(&init_net, &netfilter_ops_fw);
 }
 
 module_init(fw_init);
