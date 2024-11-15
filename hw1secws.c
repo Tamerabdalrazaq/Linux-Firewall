@@ -27,7 +27,7 @@ static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf
     return NF_ACCEPT;
 }
 
-static int __init module_init(void) {
+static int __init fw_init(void) {
     printk(KERN_INFO "Loading hw1secws module...\n");
 
     // Set up the Netfilter hook for incoming packets
@@ -49,12 +49,12 @@ static int __init module_init(void) {
     return 0;
 }
 
-static void __exit module_exit(void) {
+static void __exit fw_exit(void) {
     printk(KERN_INFO "Removing hw1secws module...\n");
 
     nf_unregister_net_hook(&init_net, &netfilter_ops_in);
     nf_unregister_net_hook(&init_net, &netfilter_ops_out);
 }
 
-module_init(module_init);
-module_exit(module_exit);
+module_init(fw_init);
+module_exit(fw_exit);
