@@ -2,6 +2,7 @@
 #include <linux/module.h>
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
+#include <linux/netdevice.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Razaq");
@@ -55,5 +56,5 @@ static void __exit module_exit(void) {
     nf_unregister_net_hook(&init_net, &netfilter_ops_out);
 }
 
-module_init(hw1secws_init);
-module_exit(hw1secws_exit);
+module_init(module_init);
+module_exit(module_exit);
