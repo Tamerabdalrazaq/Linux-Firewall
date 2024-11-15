@@ -13,15 +13,13 @@ static struct nf_hook_ops netfilter_ops_in;
 static struct nf_hook_ops netfilter_ops_out;
 
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
-    if (state->in && strcmp(state->in->name, "nic2") == 0) {
+    if (state->hook == NF_INET_LOCAL_IN || state->hook == NF_INET_LOCAL_OUT) {
         printk(KERN_INFO "*** Packet Dropped ***\n");
         return NF_DROP;
     }
-  
-    if (state->out && strcmp(state->out->name, "nic2") == 0) {
-        printk(KERN_INFO "*** Packet Dropped ***\n");
-        return NF_DROP;
-    }
+
+    // Allow packets that are forwarded through the firewall
+    return NF_ACCEPT;
   
     printk(KERN_INFO "*** Packet Accepted ***\n");
     return NF_ACCEPT;
