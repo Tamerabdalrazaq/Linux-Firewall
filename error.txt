@@ -1,7 +1,390 @@
+ error: expected identifier or '(' before '{' token
+ static int __init module_init(void) {
+                                     ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:1: error: duplicate 'static'
+ static void __exit module_exit(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:16: error: variable or field 'exitcall_t' declared void
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: warning: variable 'exitcall_t' declared 'inline'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:1: warning: '__cold__' attribute ignored [-Wattributes]
+ static void __exit module_exit(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: error: 'exitcall_t' redeclared as different kind of symbol
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+In file included from ./include/linux/printk.h:6:0,
+                 from ./include/linux/kernel.h:14,
+                 from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:1:
+./include/linux/init.h:117:16: note: previous declaration of 'exitcall_t' was here
+ typedef void (*exitcall_t)(void);
+                ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:42: error: expected ',' or ';' before '__exittest'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:38: error: expected identifier or '(' before '{' token
+ static void __exit module_exit(void) {
+                                      ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:129:16: error: type defaults to 'int' in declaration of 'initcall_t' [-Werror=implicit-int]
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:16: warning: variable 'initcall_t' declared 'inline'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:42: error: expected ',' or ';' before '__inittest'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:131:6: error: redefinition of 'init_module'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:131:6: note: previous definition of 'init_module' was here
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+./include/linux/module.h:135:16: error: type defaults to 'int' in declaration of 'exitcall_t' [-Werror=implicit-int]
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:16: warning: variable 'exitcall_t' declared 'inline'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:42: error: expected ',' or ';' before '__exittest'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:137:7: error: redefinition of 'cleanup_module'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:137:7: note: previous definition of 'cleanup_module' was here
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:12:27: warning: 'netfilter_ops_in' defined but not used [-Wunused-variable]
+ static struct nf_hook_ops netfilter_ops_in;
+                           ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:13:27: warning: 'netfilter_ops_out' defined but not used [-Wunused-variable]
+ static struct nf_hook_ops netfilter_ops_out;
+                           ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:15:21: warning: 'module_hook' defined but not used [-Wunused-function]
+ static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct n
+                     ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:131:6: error: 'init_module' aliased to undefined symbol 'void'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+./include/linux/module.h:137:7: error: 'cleanup_module' aliased to undefined symbol 'module_exit'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:131:6: error: 'init_module' aliased to undefined symbol 'module_init'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:137:7: error: 'cleanup_module' aliased to undefined symbol 'void'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+cc1: some warnings being treated as errors
+scripts/Makefile.build:337: recipe for target '/home/vboxuser/Desktop/Linux-Firewall/hw1secws.o' failed
+make[2]: *** [/home/vboxuser/Desktop/Linux-Firewall/hw1secws.o] Error 1
+Makefile:1582: recipe for target '_module_/home/vboxuser/Desktop/Linux-Firewall' failed
+make[1]: *** [_module_/home/vboxuser/Desktop/Linux-Firewall] Error 2
+make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-112-generic'
+Makefile:4: recipe for target 'all' failed
+make: *** [all] Error 2
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ clear
+[3;J
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ 
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ 
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ 
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ 
+vboxuser@WS-Firewall64:~/Desktop/Linux-Firewall$ make
 make -C /lib/modules/4.15.0-112-generic/build M=/home/vboxuser/Desktop/Linux-Firewall modules
 make[1]: Entering directory '/usr/src/linux-headers-4.15.0-112-generic'
   CC [M]  /home/vboxuser/Desktop/Linux-Firewall/hw1secws.o
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:1: error: duplicate 'static'
+ static int __init module_init(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:129:16: warning: variable 'initcall_t' declared 'inline'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+./include/linux/module.h:129:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:1: warning: '__cold__' attribute ignored [-Wattributes]
+ static int __init module_init(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:129:16: error: 'initcall_t' redeclared as different kind of symbol
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+In file included from ./include/linux/printk.h:6:0,
+                 from ./include/linux/kernel.h:14,
+                 from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:1:
+./include/linux/init.h:116:15: note: previous declaration of 'initcall_t' was here
+ typedef int (*initcall_t)(void);
+               ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:129:42: error: expected ',' or ';' before '__inittest'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:37: error: expected identifier or '(' before '{' token
+ static int __init module_init(void) {
+                                     ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:1: error: duplicate 'static'
+ static void __exit module_exit(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:16: error: variable or field 'exitcall_t' declared void
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: warning: variable 'exitcall_t' declared 'inline'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:1: warning: '__cold__' attribute ignored [-Wattributes]
+ static void __exit module_exit(void) {
+ ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+./include/linux/module.h:135:16: error: 'exitcall_t' redeclared as different kind of symbol
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+In file included from ./include/linux/printk.h:6:0,
+                 from ./include/linux/kernel.h:14,
+                 from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:1:
+./include/linux/init.h:117:16: note: previous declaration of 'exitcall_t' was here
+ typedef void (*exitcall_t)(void);
+                ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:135:42: error: expected ',' or ';' before '__exittest'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:38: error: expected identifier or '(' before '{' token
+ static void __exit module_exit(void) {
+                                      ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:129:16: error: type defaults to 'int' in declaration of 'initcall_t' [-Werror=implicit-int]
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:16: warning: variable 'initcall_t' declared 'inline'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:129:42: error: expected ',' or ';' before '__inittest'
+  static inline initcall_t __maybe_unused __inittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:131:6: error: redefinition of 'init_module'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:131:6: note: previous definition of 'init_module' was here
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+./include/linux/module.h:135:16: error: type defaults to 'int' in declaration of 'exitcall_t' [-Werror=implicit-int]
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:16: warning: variable 'exitcall_t' declared 'inline'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:16: error: 'no_instrument_function' attribute applies only to functions
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:135:42: error: expected ',' or ';' before '__exittest'
+  static inline exitcall_t __maybe_unused __exittest(void)  \
+                                          ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:137:7: error: redefinition of 'cleanup_module'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:137:7: note: previous definition of 'cleanup_module' was here
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:12:27: warning: 'netfilter_ops_in' defined but not used [-Wunused-variable]
+ static struct nf_hook_ops netfilter_ops_in;
+                           ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:13:27: warning: 'netfilter_ops_out' defined but not used [-Wunused-variable]
+ static struct nf_hook_ops netfilter_ops_out;
+                           ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:15:21: warning: 'module_hook' defined but not used [-Wunused-function]
+ static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct n
+                     ^
+In file included from /home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:2:0:
+./include/linux/module.h:131:6: error: 'init_module' aliased to undefined symbol 'void'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:30:19: note: in expansion of macro 'module_init'
+ static int __init module_init(void) {
+                   ^
+./include/linux/module.h:137:7: error: 'cleanup_module' aliased to undefined symbol 'module_exit'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:60:1: note: in expansion of macro 'module_exit'
+ module_exit(module_exit);
+ ^
+./include/linux/module.h:131:6: error: 'init_module' aliased to undefined symbol 'module_init'
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:59:1: note: in expansion of macro 'module_init'
+ module_init(module_init);
+ ^
+./include/linux/module.h:137:7: error: 'cleanup_module' aliased to undefined symbol 'void'
+  void cleanup_module(void) __copy(exitfn) __attribute__((alias(#exitfn)));
+       ^
+/home/vboxuser/Desktop/Linux-Firewall/hw1secws.c:52:20: note: in expansion of macro 'module_exit'
+ static void __exit module_exit(void) {
+                    ^
+cc1: some warnings being treated as errors
 scripts/Makefile.build:337: recipe for target '/home/vboxuser/Desktop/Linux-Firewall/hw1secws.o' failed
+make[2]: *** [/home/vboxuser/Desktop/Linux-Firewall/hw1secws.o] Error 1
 Makefile:1582: recipe for target '_module_/home/vboxuser/Desktop/Linux-Firewall' failed
-make[1]: Leaving directory '/usr/src/linux-headers-4.15.0-112-generic'
-Makefile:4: recipe for target 'all' failed
+
