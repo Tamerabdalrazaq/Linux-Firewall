@@ -11,6 +11,7 @@ MODULE_VERSION("1");
 
 static struct nf_hook_ops netfilter_ops_in;
 static struct nf_hook_ops netfilter_ops_out;
+static struct nf_hook_ops netfilter_ops_fw;
 
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
     printk(KERN_INFO "$s\n", state->hook);
@@ -31,13 +32,13 @@ static int __init fw_init(void) {
     // Set up the Netfilter hook for incoming packets
     netfilter_ops_in.hook = module_hook;
     netfilter_ops_in.pf = PF_INET;
-    netfilter_ops_in.hooknum = NF_INET_PRE_ROUTING;
+    netfilter_ops_in.hooknum = NF_INET_LOCAL_IN;
     netfilter_ops_in.priority = NF_IP_PRI_FIRST;
 
     // Set up the Netfilter hook for outgoing packets
     netfilter_ops_out.hook = module_hook;
     netfilter_ops_out.pf = PF_INET;
-    netfilter_ops_out.hooknum = NF_INET_POST_ROUTING;
+    netfilter_ops_out.hooknum = NF_INET_LOCAL_OUT;
     netfilter_ops_out.priority = NF_IP_PRI_FIRST;
 
     // Set up the Netfilter hook for outgoing packets
