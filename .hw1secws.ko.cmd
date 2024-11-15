@@ -1,0 +1,1 @@
+cmd_/home/vboxuser/Desktop/Linux-Firewall/hw1secws.ko := ld -r -m elf_x86_64 -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/vboxuser/Desktop/Linux-Firewall/hw1secws.ko /home/vboxuser/Desktop/Linux-Firewall/hw1secws.o /home/vboxuser/Desktop/Linux-Firewall/hw1secws.mod.o ;  true
