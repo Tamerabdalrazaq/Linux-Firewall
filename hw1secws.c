@@ -30,8 +30,8 @@ static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf
 
 // Initialization function; handles error registering the hooks with cleanups and an indicative return value
 static int __init fw_init(void) {
-    printk(KERN_INFO "Loading hw1secws module...\n");
     int ret;
+    printk(KERN_INFO "Loading hw1secws module...\n");
 
     // Set up the Netfilter hook for incoming packets
     netfilter_ops_in.hook = module_hook;
