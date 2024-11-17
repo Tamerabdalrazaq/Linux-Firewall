@@ -9,26 +9,29 @@ MODULE_AUTHOR("Razaq");
 MODULE_DESCRIPTION("Basic Packet Filtering");
 MODULE_VERSION("1");
 
+
+// Netfilter hooks for relevant packet phases
 static struct nf_hook_ops netfilter_ops_in;
 static struct nf_hook_ops netfilter_ops_out;
 static struct nf_hook_ops netfilter_ops_fw;
 
+// A hook function used for the 3 relevan phases (In, Out, Through)
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
-    if (state->hook == NF_INET_LOCAL_IN) {
-        printk(KERN_INFO "[FW] Incoming packet: Local connection blocked\n");
-        return NF_DROP;
-    } else if (state->hook == NF_INET_LOCAL_OUT) {
-        printk(KERN_INFO "[FW] Outgoing packet: Local connection blocked\n");
+    if (state->hook == NF_INET_LOCAL_IN || state->hook == NF_INET_LOCAL_OUT) {
+        printk(KERN_INFO " *** Packet Dropped ***\n");
         return NF_DROP;
     } else if (state->hook == NF_INET_FORWARD) {
-        printk(KERN_INFO "[FW] Forwarding packet: Connection allowed\n");
+        printk(KERN_INFO "*** Packet Accepted ***");
         return NF_ACCEPT;
     }
     return NF_ACCEPT;
 }
 
+
+// Initialization function; handles error registering the hooks with cleanups and an indicative return value
 static int __init fw_init(void) {
     printk(KERN_INFO "Loading hw1secws module...\n");
+    int ret;
 
     // Set up the Netfilter hook for incoming packets
     netfilter_ops_in.hook = module_hook;
@@ -36,11 +39,24 @@ static int __init fw_init(void) {
     netfilter_ops_in.hooknum = NF_INET_LOCAL_IN;
     netfilter_ops_in.priority = NF_IP_PRI_FIRST;
 
+    ret = nf_register_net_hook(&init_net, &netfilter_ops_in);
+    if (ret) {
+        printk(KERN_ERR "hw1secws: Failed to register incoming hook. Error: %d\n", ret);
+        return ret;
+    }
+
     // Set up the Netfilter hook for outgoing packets
     netfilter_ops_out.hook = module_hook;
     netfilter_ops_out.pf = PF_INET;
     netfilter_ops_out.hooknum = NF_INET_LOCAL_OUT;
     netfilter_ops_out.priority = NF_IP_PRI_FIRST;
+
+    ret = nf_register_net_hook(&init_net, &netfilter_ops_out);
+    if (ret) {
+        printk(KERN_ERR "hw1secws: Failed to register outgoing hook. Error: %d\n", ret);
+        nf_unregister_net_hook(&init_net, &netfilter_ops_in); // Cleanup
+        return ret;
+    }
 
     // Set up the Netfilter hook for forwarding packets
     netfilter_ops_fw.hook = module_hook;
@@ -48,11 +64,14 @@ static int __init fw_init(void) {
     netfilter_ops_fw.hooknum = NF_INET_FORWARD;
     netfilter_ops_fw.priority = NF_IP_PRI_FIRST;
 
-    // Register the hooks
-    nf_register_net_hook(&init_net, &netfilter_ops_in);
-    nf_register_net_hook(&init_net, &netfilter_ops_out);
-    nf_register_net_hook(&init_net, &netfilter_ops_fw);
-
+    ret = nf_register_net_hook(&init_net, &netfilter_ops_fw);
+    if (ret) {
+        printk(KERN_ERR "hw1secws: Failed to register forwarding hook. Error: %d\n", ret);
+        nf_unregister_net_hook(&init_net, &netfilter_ops_in); // Cleanup
+        nf_unregister_net_hook(&init_net, &netfilter_ops_out); // Cleanup
+        return ret;
+    }
+    
     return 0;
 }
 
