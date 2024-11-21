@@ -7,21 +7,21 @@ def read_sysfs():
     try:
         with open(sysfs_file_path, 'r') as f:
             value = f.read().strip()
-            print(f"Current value of sysfs_int: {value}")
+            print("Current value of sysfs_int: {}".format(value))  # Updated for Python 3.5 compatibility
     except FileNotFoundError:
-        print(f"Error: {sysfs_file_path} not found. Make sure the module is loaded.")
+        print("Error: {} not found. Make sure the module is loaded.".format(sysfs_file_path))
     except Exception as e:
-        print(f"Error reading from sysfs: {e}")
+        print("Error reading from sysfs: {}".format(e))
 
 def write_sysfs(new_value):
     try:
         with open(sysfs_file_path, 'w') as f:
-            f.write(f"{new_value}\n")
-        print(f"Successfully wrote new value: {new_value}")
+            f.write("{}\n".format(new_value))  # Updated for Python 3.5 compatibility
+        print("Successfully wrote new value: {}".format(new_value))  # Updated for Python 3.5 compatibility
     except FileNotFoundError:
-        print(f"Error: {sysfs_file_path} not found. Make sure the module is loaded.")
+        print("Error: {} not found. Make sure the module is loaded.".format(sysfs_file_path))
     except Exception as e:
-        print(f"Error writing to sysfs: {e}")
+        print("Error writing to sysfs: {}".format(e))
 
 def main():
     while True:
