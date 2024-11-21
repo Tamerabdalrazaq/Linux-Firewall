@@ -3,6 +3,8 @@
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
 #include <linux/netdevice.h>
+#include <linux/fs.h>
+#include <linux/device.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Razaq");
@@ -14,6 +16,33 @@ MODULE_VERSION("1");
 static struct nf_hook_ops netfilter_ops_in;
 static struct nf_hook_ops netfilter_ops_out;
 static struct nf_hook_ops netfilter_ops_fw;
+
+
+static int major_number;
+static struct class* sysfs_class = NULL;
+static struct device* sysfs_device = NULL;
+
+static unsigned int sysfs_int = 0;
+
+
+static struct file_operations fops = {
+	.owner = THIS_MODULE
+};
+
+ssize_t display(struct device *dev, struct device_attribute *attr, char *buf)	//sysfs show implementation
+{
+	return scnprintf(buf, PAGE_SIZE, "%u\n", sysfs_int);
+}
+
+ssize_t modify(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)	//sysfs store implementation
+{
+	int temp;
+	if (sscanf(buf, "%u", &temp) == 1)
+		sysfs_int = temp;
+	return count;	
+}
+
+static DEVICE_ATTR(sysfs_att, S_IWUSR | S_IRUGO , display, modify);
 
 // A hook function used for the 3 relevan phases (In, Out, Through)
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
@@ -72,6 +101,39 @@ static int __init fw_init(void) {
         return ret;
     }
     
+
+    //create char device
+	major_number = register_chrdev(0, "Sysfs_Device", &fops);\
+	if (major_number < 0)
+		return -1;
+		
+	//create sysfs class
+	sysfs_class = class_create(THIS_MODULE, "Sysfs_class");
+	if (IS_ERR(sysfs_class))
+	{
+		unregister_chrdev(major_number, "Sysfs_Device");
+		return -1;
+	}
+	
+	//create sysfs device
+	sysfs_device = device_create(sysfs_class, NULL, MKDEV(major_number, 0), NULL, "sysfs_class" "_" "sysfs_Device");	
+	if (IS_ERR(sysfs_device))
+	{
+		class_destroy(sysfs_class);
+		unregister_chrdev(major_number, "Sysfs_Device");
+		return -1;
+	}
+	
+	//create sysfs file attributes	
+	if (device_create_file(sysfs_device, (const struct device_attribute *)&dev_attr_sysfs_att.attr))
+	{
+		device_destroy(sysfs_class, MKDEV(major_number, 0));
+		class_destroy(sysfs_class);
+		unregister_chrdev(major_number, "Sysfs_Device");
+		return -1;
+	}
+
+
     return 0;
 }
 
@@ -81,6 +143,10 @@ static void __exit fw_exit(void) {
     nf_unregister_net_hook(&init_net, &netfilter_ops_in);
     nf_unregister_net_hook(&init_net, &netfilter_ops_out);
     nf_unregister_net_hook(&init_net, &netfilter_ops_fw);
+    device_remove_file(sysfs_device, (const struct device_attribute *)&dev_attr_sysfs_att.attr);
+	device_destroy(sysfs_class, MKDEV(major_number, 0));
+	class_destroy(sysfs_class);
+	unregister_chrdev(major_number, "Sysfs_Device");
 }
 
 module_init(fw_init);
