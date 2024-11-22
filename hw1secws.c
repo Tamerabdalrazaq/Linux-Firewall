@@ -48,7 +48,7 @@ ssize_t modify(struct device *dev, struct device_attribute *attr, const char *bu
     passed_packets = 0;
     dropped_packets = 0;
     total_packets = 0;
-	return 0;	
+	return count;	
 }
 
 static DEVICE_ATTR(sysfs_att, S_IWUSR | S_IRUGO , display, modify);
