@@ -22,7 +22,9 @@ static int major_number;
 static struct class* sysfs_class = NULL;
 static struct device* sysfs_device = NULL;
 
-static unsigned int sysfs_int = 0;
+static unsigned int total_packets = 0;
+static unsigned int dropped_packets = 0;
+static unsigned int passed_packets = 0;
 
 
 static struct file_operations fops = {
@@ -31,26 +33,32 @@ static struct file_operations fops = {
 
 ssize_t display(struct device *dev, struct device_attribute *attr, char *buf)	//sysfs show implementation
 {
-	return scnprintf(buf, PAGE_SIZE, "%u\n", sysfs_int);
+	scnprintf(buf, PAGE_SIZE, "Firewall Packets Summary:\n");
+	scnprintf(buf, PAGE_SIZE, "Number of accepted packets: %u\n", passed_packets);
+	scnprintf(buf, PAGE_SIZE, "Number of dropped  packets: %u\n", dropped_packets);
+	return scnprintf(buf, PAGE_SIZE, "Total number of packets: %u\n", total_packets);
 }
 
 ssize_t modify(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)	//sysfs store implementation
 {
-	int temp;
-	if (sscanf(buf, "%u", &temp) == 1)
-		sysfs_int = temp;
-	return count;	
+    passed_packets = 0;
+    dropped_packets = 0;
+    total_packets = 0;
+	return 0;	
 }
 
 static DEVICE_ATTR(sysfs_att, S_IWUSR | S_IRUGO , display, modify);
 
 // A hook function used for the 3 relevan phases (In, Out, Through)
 static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
+    total_packets += 1;
     if (state->hook == NF_INET_LOCAL_IN || state->hook == NF_INET_LOCAL_OUT) {
         printk(KERN_INFO " *** Packet Dropped ***\n");
+        dropped_packets += 1;
         return NF_DROP;
     } else if (state->hook == NF_INET_FORWARD) {
         printk(KERN_INFO "*** Packet Accepted ***");
+        passed_packets += 1;
         return NF_ACCEPT;
     }
     return NF_ACCEPT;
