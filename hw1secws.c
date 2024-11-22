@@ -33,10 +33,14 @@ static struct file_operations fops = {
 
 ssize_t display(struct device *dev, struct device_attribute *attr, char *buf)	//sysfs show implementation
 {
-	scnprintf(buf, PAGE_SIZE, "Firewall Packets Summary:\n");
-	scnprintf(buf, PAGE_SIZE, "Number of accepted packets: %u\n", passed_packets);
-	scnprintf(buf, PAGE_SIZE, "Number of dropped  packets: %u\n", dropped_packets);
-	return scnprintf(buf, PAGE_SIZE, "Total number of packets: %u\n", total_packets);
+    int len = 0;
+
+    len += scnprintf(buf + len, PAGE_SIZE - len, "Firewall Packets Summary:\n");
+    len += scnprintf(buf + len, PAGE_SIZE - len, "Number of accepted packets: %u\n", passed_packets);
+    len += scnprintf(buf + len, PAGE_SIZE - len, "Number of dropped packets: %u\n", dropped_packets);
+    len += scnprintf(buf + len, PAGE_SIZE - len, "Total number of packets: %u\n", total_packets);
+
+    return len;
 }
 
 ssize_t modify(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)	//sysfs store implementation

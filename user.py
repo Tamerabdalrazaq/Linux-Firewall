@@ -9,7 +9,7 @@ def read_sysfs():
     try:
         with open(sysfs_file_path, 'r') as f:
             value = f.read().strip()
-            print("Current value of sysfs_int: {}".format(value))  
+            print(value)  
     except FileNotFoundError:
         print("Error: {} not found. Make sure the module is loaded.".format(sysfs_file_path))
     except Exception as e:
