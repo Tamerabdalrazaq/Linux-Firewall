@@ -19,7 +19,7 @@ def write_sysfs():
     try:
         with open(sysfs_file_path, 'w') as f:
             f.write("{}\n".format(0))
-        print("Successfully reseted counters: {}".format())  
+        print("Successfully reseted counters: {}".format(0))  
     except FileNotFoundError:
         print("Error: {} not found. Make sure the module is loaded.".format(sysfs_file_path))
     except Exception as e:
