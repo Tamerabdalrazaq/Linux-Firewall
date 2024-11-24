@@ -70,6 +70,7 @@ static unsigned int module_hook(void *priv, struct sk_buff *skb, const struct nf
 
 
 // Initialization function; handles error registering the hooks with cleanups and an indicative return value
+//  Initialize Sysfs device
 static int __init fw_init(void) {
     int ret;
     printk(KERN_INFO "Loading hw1secws module...\n");

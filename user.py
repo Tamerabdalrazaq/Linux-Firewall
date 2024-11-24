@@ -1,5 +1,4 @@
 import os
-
 import sys
 
 # Path to the sysfs file for the sysfs attribute
@@ -26,14 +25,16 @@ def write_sysfs():
 
 def main():
         args = sys.argv
+        # Check correct number of arguments
         if len(args) > 2:
             return sys.exit("Error: Invalid Input")
-        
+        # Reset stats
         elif len(args) == 2:
             param = args[1]
             if param != "1":
                 return sys.exit("Error: Invalid Input")
             write_sysfs()
+        # Read Stats
         else:
             read_sysfs()
 

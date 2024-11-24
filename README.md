@@ -1,4 +1,10 @@
 A  kernel module imitating a firewall
+
+For user-space interaction:
+
+display: Sends to the user statistics of the firewall
+modify: Reset all statistics
+
 Initialization at fw_init:
   Registering 3 netfilter phases (In, Out, Forward) with a single hook function that handles them.
   The init function handles errors in regestration by returning a proper value and unregestiring the hooks
@@ -15,3 +21,4 @@ Hook module_hook:
 Resources:
   Module boilerplate - ChatGPT
   Netfilter documentations - ChatGPT
+  Sysfs - Moodle
