@@ -1,7 +1,8 @@
 A  kernel module imitating a firewall
 
-For user-space interaction:
+## C Kernel Module
 
+For user-space interaction:
 display: Sends to the user statistics of the firewall
 modify: Reset all statistics
 
@@ -17,6 +18,9 @@ Hook module_hook:
   Accepts packets routed to INET_FORWARD (i.e. packets destined for another host through the firewall)
   In case the state->hook field is nullish accepts (for protocols other than IP)
 
+## Python User program
+### user.py
+Interacts with the firewall module using sysfs
 
 Resources:
   Module boilerplate - ChatGPT
